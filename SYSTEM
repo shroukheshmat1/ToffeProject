@@ -1,0 +1,149 @@
+import java.lang.*;
+import java.util.regex.Pattern;
+import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+public class SYSTEM
+{
+     private String name;
+     private String email;
+     private String phone;
+     private String address;
+    private String password;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public boolean SignUp (String pass,String E,String ph,String N,String add)
+    {
+        address=add;
+        boolean val=true;
+        while (val)
+        {
+            boolean pass_validate= Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&_*]).{8,}",pass);
+            if (pass_validate)
+            {    password=pass;
+                 val=false;
+            }
+            else
+            {
+                System.out.println("Invalid Password, rules of a password:\n 1- At least 8 chars\n 2- has at least one symbol\n 3- has at least one number\n 4- has at least one uppercase letter\n 5- has at least one lowercase letter ");
+                System.out.println("Enter again your password:");
+                pass=new Scanner(System.in).nextLine();
+            }
+        }
+
+        while (val)
+        {
+            boolean email_validate= Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n",E);
+            if (email_validate)
+            {    email=E;
+                 val=false;
+            }
+            else
+            {
+                System.out.println("Invalid Email,please Enter again your email:");
+                E=new Scanner(System.in).nextLine();
+            }
+        }
+
+        while (val)
+        {
+            boolean Name_validate= Pattern.matches("^[A-Za-z]+\\\\s[A-Za-z]+\\\\d*$\n",N);
+            if (Name_validate)
+            {    name=N;
+                 val=false;
+            }
+            else
+            {
+                System.out.println("Invalid Username, rules of a username Name MUST consists of two partitions (ie: first and second name) saparated by a SINGLE space and it can be ended by any amount of numbers");
+                System.out.println("Enter again your Username:");
+                N=new Scanner(System.in).nextLine();
+            }
+        }
+
+        while (val)
+        {
+            boolean phone_validate= Pattern.matches("^(010|012|011|015)\\\\d{8}$\n",ph);
+            if (phone_validate)
+            {    phone=ph;
+                 val=false;
+            }
+            else
+            {
+                System.out.println("Invalid phone number, rules of a phone number: it MUST starts with 010 or 012 or 011 or 015 then followed by 8 numbers only");
+                System.out.println("Enter again your phone number:");
+                ph=new Scanner(System.in).nextLine();
+            }
+        }
+        return true;
+    }
+    public String getName()
+    {
+        return this.name;
+    }
+    public String getEmail()
+    {
+        return this.email;
+    }
+    public String getPhone()
+    {
+        return this.phone;
+    }
+    public String getPassword()
+    {
+        return this.password;
+    }
+    public String getAddress()
+    {
+        return this.address;
+    }
+}
+
+
+
+class User
+{
+    private String name;
+    private String email;
+    private String phone;
+    private String address;
+    private String password;
+    public static List<User> users = new ArrayList<>();
+
+
+    public User(String nme, String emil, String ph, String addr, String passw)
+    {
+        this.name = nme;
+        this.email = emil;
+        this.phone = ph;
+        this.address = addr;
+        this.password = passw;
+    }
+    public void createaccount()
+    {
+        SYSTEM sys = new SYSTEM();
+        String pass = this.password;
+        String Email = this.email;
+        String Phone = this.phone;
+        String Name = this.name;
+        String Address = this.address;
+        if (sys.SignUp(pass, Email, Phone, Name, Address))
+        {
+            User user = new User(sys.getName(), sys.getEmail(), sys.getPhone(), sys.getAddress(), sys.getPassword());
+            users.add(user);
+            System.out.println("User added successfully!");
+        }
+    }
+    public void ViewAllAccounts()
+    {
+        int id=1;
+        for (User account:users)
+        {
+            System.out.println("Name of User no "+id+" is: " + account.name );
+            System.out.println("Email of User no "+id+" is: " + account.email );
+            System.out.println("Phone number of User no "+id+" is: " + account.phone );
+            System.out.println("Address of User no "+id+" is: " + account.address );
+            System.out.println("Password of User no "+id+" is: " + account.password );
+            id++;
+        }
+    }
+}
