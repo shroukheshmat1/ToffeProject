@@ -1,0 +1,73 @@
+import java.io.InputStream;
+import java.util.*;
+import javax.swing.JOptionPane;
+import java.lang.*;
+import java.io.InputStream;
+class Main {
+    static boolean ordering=true;
+    public static void menu()
+    {
+        System.out.println("Welcome to our Toffe online store, please enter your choice: "
+        +"\n1- Sign-up as a user"
+        +"\n2- Log-in"
+        +"\n3- Update info"
+        +"\n4- View Category"
+        +"\n5- Place an Order"
+        +"\n6- Add items into your Cart"
+        +"\n7- Delete Account"
+        +"\n7- Exit");
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        do
+        {
+            menu();
+            int choice= sc.nextInt();
+            switch (choice)
+            {
+                case 1:
+                    System.out.print("Enter your first name: ");
+                    String fname = sc.next();
+
+                    System.out.print("Enter your last name: ");
+                    String lname = sc.next();
+
+                    String name=fname+" "+lname;
+
+                    System.out.print("Enter your email: ");
+                    String email = sc.next();
+
+                    System.out.print("Enter your phone number: ");
+                    String phone = sc.next();
+
+                    System.out.print("Enter your address: ");
+                    String address = sc.next();
+
+
+                    System.out.print("Enter your password: ");
+                    String password = sc.next();
+
+                    User user = new User(name, email, phone, address, password);
+                    user.createaccount();
+                    user.ViewAllAccounts();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice: ");
+                    break;
+            }
+        }while (ordering);
+    }
+}
