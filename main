@@ -8,14 +8,14 @@ class Main {
     public static void menu()
     {
         System.out.println("Welcome to our Toffe online store, please enter your choice: "
-        +"\n1- Sign-up as a user"
-        +"\n2- Log-in"
-        +"\n3- Update info"
-        +"\n4- View Category"
-        +"\n5- Place an Order"
-        +"\n6- Add items into your Cart"
-        +"\n7- Delete Account"
-        +"\n7- Exit");
+                +"\n1- Sign-up as a user"
+                +"\n2- Log-in"
+                +"\n3- Update info"
+                +"\n4- View Category"
+                +"\n5- Place an Order"
+                +"\n6- Add items into your Cart"
+                +"\n7- Delete Account"
+                +"\n7- Exit");
     }
     public static void main(String[] args)
     {
@@ -27,13 +27,10 @@ class Main {
             switch (choice)
             {
                 case 1:
-                    System.out.print("Enter your first name: ");
-                    String fname = sc.next();
 
-                    System.out.print("Enter your last name: ");
-                    String lname = sc.next();
+                    System.out.print("Enter your User name: ");
+                    String name = sc.next() + sc.nextLine();
 
-                    String name=fname+" "+lname;
 
                     System.out.print("Enter your email: ");
                     String email = sc.next();
@@ -48,15 +45,24 @@ class Main {
                     System.out.print("Enter your password: ");
                     String password = sc.next();
 
-                    User user = new User(name, email, phone, address, password);
-                    user.createaccount();
-                    user.ViewAllAccounts();
+                    SYSTEM ss = new SYSTEM();
+                    ss.SignUp(name, email, phone, address, password);
                     break;
                 case 2:
+
+                    System.out.print("Enter your email: ");
+                    String Email = sc.next();
+
+                    System.out.print("Enter your password: ");
+                    String pass = sc.next();
+                    SYSTEM s = new SYSTEM();
+                    s.LogIn(Email, pass);
                     break;
                 case 3:
                     break;
                 case 4:
+                    Category c= new Category();
+                    c.display_category();
                     break;
                 case 5:
                     break;
