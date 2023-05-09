@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.lang.String;
 import java.util.Scanner;
 public class SYSTEM
 {
@@ -96,26 +97,11 @@ public class SYSTEM
         User myuser = new User(name, email, phone, address, pass);
         myuser.createaccount(myuser);
         myuser.SavedData(myuser);
-        myuser.PRINT();
         return true;
     }
 
-
-    public void LogIn (String Email, String pass)
-    {
-        User myuser=new User (name,email,phone,address,password);
-        if (myuser.Search(Email,pass))
-        {
-            System.out.println("logged-in successfully!");
-        }
-        else
-        {
-            System.out.println("ERROR");
-            SYSTEM ss = new SYSTEM();
-            ss.SignUp(name, email, phone, address, password);
-        }
-    }
-    public void Login(String E, String pass) {   // another log in method that loops only on the users arraylist
+    public void Login(String E, String pass)
+    {                                            // another log in method that loops only on the users arraylist
         boolean found = false;                  // doesn't use search method (hash table) :)
         for (User u : User.users) {
             if (u.getEmail().equals(E) && u.getPassword().equals(pass)) {
@@ -125,8 +111,27 @@ public class SYSTEM
             }
         }
         if (!found) {
-            System.out.println("User not found !");
-//            SignUp(name, E, phone, address, pass);
+            System.out.println("User was not found,Please Choose to Sign-UP to join us or try to login again with a correct email and password");
+        }
+    }
+    public void resetpass(String E, String pass)
+    {
+        Scanner sc=new Scanner(System.in);
+        SYSTEM system = new SYSTEM();
+        System.out.println("please enter your new pass");
+        String newpassword = sc.next();
+        while (!system.validate_pass(newpassword))
+        {
+            newpassword = sc.next();
+        }
+        for (User u : User.users)
+        {
+            if (u.getEmail().equals(E) && u.getPassword().equals(pass))
+            {
+                u.SetPass(newpassword);
+                System.out.println("Password was reset successfully");
+                break;
+            }
         }
     }
     public String Name()
@@ -160,6 +165,10 @@ class User
     private String phone;
     private String address;
     private String password;
+    void SetPass(String pass)
+    {
+        password=pass;
+    }
 
     public static ArrayList<User> users = new ArrayList<User>();
     Hashtable<String, String> Emails_Pass = new Hashtable<String, String>();
@@ -192,28 +201,6 @@ class User
     {
         Emails_Pass.put(this.getEmail(),this.getPassword());
     }
-    public boolean Search(String em, String p) {
-        boolean result = false;
-        Enumeration<String> key = Emails_Pass.keys();
-        while (key.hasMoreElements()) {
-            String NEXT = key.nextElement();
-            if (NEXT.equals(em) && Emails_Pass.get(NEXT).equals(p)) {
-                result = true;
-                break;
-            } else if (NEXT.equals(em)) {
-                System.out.println("Valid Email, Invalid pass,re-enter your password please");
-                p = new Scanner(System.in).nextLine();
-            } else if (Emails_Pass.get(NEXT).equals(p)) {
-                System.out.println("Valid Password, Invalid Email,re-enter your Email please");
-                em = new Scanner(System.in).nextLine();
-            }
-        }
-        if (!result) {
-            System.out.println("Neither email Nor password is on our system, please create a new account to join us using Sign-Up");
-        }
-        return result;
-    }
-
     public void PRINT()
     {
         Enumeration<String>key=Emails_Pass.keys();
@@ -291,6 +278,27 @@ class Category
         {
             String NEXT=key.nextElement();
             System.out.println("Product: "+ NEXT +" , Price: "+ products.get(NEXT));
+        }
+    }
+    void Search_for_a_product (String searched_product)
+    {
+        Enumeration<String>key=products.keys();
+        boolean found = false;
+        while (key.hasMoreElements())
+        {
+            String NEXT=key.nextElement();
+            System.out.println(searched_product.toLowerCase());
+            System.out.println(NEXT.toLowerCase());
+            if (searched_product.toLowerCase().equals(NEXT.toLowerCase()))
+            {
+                System.out.println("Product: "+ NEXT +" is valid, its Price: "+ products.get(NEXT));
+                found=true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            System.out.println("Product \" "  + searched_product + " \" is not valid");
         }
     }
 }
