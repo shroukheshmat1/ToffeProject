@@ -101,17 +101,32 @@ public class SYSTEM
     }
 
 
-    public void LogIn (String E, String pass)
+    public void LogIn (String Email, String pass)
     {
         User myuser=new User (name,email,phone,address,password);
-        if (myuser.Search(E,pass))
+        if (myuser.Search(Email,pass))
         {
             System.out.println("logged-in successfully!");
         }
         else
         {
+            System.out.println("ERROR");
             SYSTEM ss = new SYSTEM();
             ss.SignUp(name, email, phone, address, password);
+        }
+    }
+    public void Login(String E, String pass) {   // another log in method that loops only on the users arraylist
+        boolean found = false;                  // doesn't use search method (hash table) :)
+        for (User u : User.users) {
+            if (u.getEmail().equals(E) && u.getPassword().equals(pass)) {
+                System.out.println("logged-in successfully!");
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("User not found !");
+//            SignUp(name, E, phone, address, pass);
         }
     }
     public String Name()
@@ -177,35 +192,28 @@ class User
     {
         Emails_Pass.put(this.getEmail(),this.getPassword());
     }
-    public boolean Search (String em,String p)
-    {
+    public boolean Search(String em, String p) {
         boolean result = false;
-        Enumeration<String>key=Emails_Pass.keys();
-        while (key.hasMoreElements())
-        {
-            String NEXT=key.nextElement();
-            if ((NEXT==em)&&(Emails_Pass.get(NEXT)==p))
-            {
-                result=true;
-            }
-            else if ((NEXT==em)&&(Emails_Pass.get(NEXT)!=p))
-            {
+        Enumeration<String> key = Emails_Pass.keys();
+        while (key.hasMoreElements()) {
+            String NEXT = key.nextElement();
+            if (NEXT.equals(em) && Emails_Pass.get(NEXT).equals(p)) {
+                result = true;
+                break;
+            } else if (NEXT.equals(em)) {
                 System.out.println("Valid Email, Invalid pass,re-enter your password please");
-                p=new Scanner(System.in).nextLine();
-            }
-            else if ((NEXT!=em)&&(Emails_Pass.get(NEXT)==p))
-            {
+                p = new Scanner(System.in).nextLine();
+            } else if (Emails_Pass.get(NEXT).equals(p)) {
                 System.out.println("Valid Password, Invalid Email,re-enter your Email please");
-                em=new Scanner(System.in).nextLine();
+                em = new Scanner(System.in).nextLine();
             }
-            else
-            {
-                System.out.println("Neither email Nor password is on our system, please create a new account to join us using Sign-Up");
-                result=false;
-            }
+        }
+        if (!result) {
+            System.out.println("Neither email Nor password is on our system, please create a new account to join us using Sign-Up");
         }
         return result;
     }
+
     public void PRINT()
     {
         Enumeration<String>key=Emails_Pass.keys();

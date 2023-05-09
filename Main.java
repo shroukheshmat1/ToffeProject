@@ -20,6 +20,8 @@ class Main {
     public static void main(String[] args)
     {
         Scanner sc=new Scanner(System.in);
+        SYSTEM system = new SYSTEM();
+
         do
         {
             menu();
@@ -28,28 +30,27 @@ class Main {
             {
                 case 1:
 
-                    SYSTEM system = new SYSTEM();
 
                     System.out.print("Enter your User name: ");
                     String name = sc.next() + sc.nextLine();
                     while (!system.validate_name(name)) {
                         name = sc.nextLine();
                     }
-                    System.out.println(system.Name());
+//                    System.out.println(system.Name());
 
                     System.out.println("Enter your Email: ");
                     String email = sc.next();
                     while (!system.validate_email(email)) {
                         email = sc.next();
                     }
-                    System.out.println(system.getEmail());
+//                    System.out.println(system.getEmail());
 
                     System.out.print("Enter your phone number: ");
                     String phone = sc.next();
                     while (!system.validate_phone(phone)) {
                         email = sc.next();
                     }
-                    System.out.println(system.getPhone());
+//                    System.out.println(system.getPhone());
 
                     System.out.print("Enter your address: ");
                     String address = sc.next();
@@ -60,7 +61,7 @@ class Main {
                     while (!system.validate_pass(password)) {
                         password = sc.next();
                     }
-                    System.out.println(system.getPassword());
+//                    System.out.println(system.getPassword());
 
 
                     system.SignUp(system.Name(), system.getEmail(), system.getPhone(), address, system.getPassword());
@@ -71,9 +72,9 @@ class Main {
                     String Email = sc.next();
 
                     System.out.print("Enter your password: ");
-                    String pass = sc.next();
-                    SYSTEM s = new SYSTEM();
-                    s.LogIn(Email, pass);
+                    String Pass = sc.next();
+//                    SYSTEM s = new SYSTEM();
+                    system.Login(Email, Pass);
                     break;
                 case 3:
                     break;
@@ -86,7 +87,7 @@ class Main {
                 case 6:
                     break;
                 case 7:
-                    break;
+                    return;
                 default:
                     System.out.println("Please enter a valid choice: ");
                     break;
