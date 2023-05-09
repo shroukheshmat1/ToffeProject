@@ -7,7 +7,7 @@ class Main {
     static boolean ordering=true;
     public static void menu()
     {
-        System.out.println("Welcome to our Toffe online store, please enter your choice: "
+        System.out.println("Welcome to our Toffee online store, please enter your choice: "
                 +"\n1- Sign-up as a user"
                 +"\n2- Log-in"
                 +"\n3- Update info"
@@ -28,15 +28,28 @@ class Main {
             {
                 case 1:
 
+                    SYSTEM system = new SYSTEM();
+
                     System.out.print("Enter your User name: ");
                     String name = sc.next() + sc.nextLine();
+                    while (!system.validate_name(name)) {
+                        name = sc.nextLine();
+                    }
+                    System.out.println(system.Name());
 
-
-                    System.out.print("Enter your email: ");
+                    System.out.println("Enter your Email: ");
                     String email = sc.next();
+                    while (!system.validate_email(email)) {
+                        email = sc.next();
+                    }
+                    System.out.println(system.getEmail());
 
                     System.out.print("Enter your phone number: ");
                     String phone = sc.next();
+                    while (!system.validate_phone(phone)) {
+                        email = sc.next();
+                    }
+                    System.out.println(system.getPhone());
 
                     System.out.print("Enter your address: ");
                     String address = sc.next();
@@ -44,9 +57,13 @@ class Main {
 
                     System.out.print("Enter your password: ");
                     String password = sc.next();
+                    while (!system.validate_pass(password)) {
+                        password = sc.next();
+                    }
+                    System.out.println(system.getPassword());
 
-                    SYSTEM ss = new SYSTEM();
-                    ss.SignUp(name, email, phone, address, password);
+
+                    system.SignUp(system.Name(), system.getEmail(), system.getPhone(), address, system.getPassword());
                     break;
                 case 2:
 

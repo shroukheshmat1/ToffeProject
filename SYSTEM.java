@@ -14,14 +14,15 @@ public class SYSTEM
     private String password;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public SYSTEM(){}
-    public boolean validate_name(String N)
+    public  boolean validate_name(String N)
     {
         boolean val3=true;
         while (val3)
         {
             boolean Name_validate= Pattern.matches("^([A-Za-z]+)\\s([A-Za-z]+)$",N);
             if (Name_validate)
-            {    name=N;
+            {
+                name=N;
                 val3=false;
             }
             else
@@ -58,7 +59,8 @@ public class SYSTEM
         {
             boolean pass_validate= Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&_*]).{8,}",pass);
             if (pass_validate)
-            {    password=pass;
+            {
+                password=pass;
                 val=false;
             }
             else
@@ -89,19 +91,15 @@ public class SYSTEM
         }
         return true;
     }
-    public boolean SignUp (String pass,String E,String ph,String N,String add)
-    {
-        address=add;
-        validate_name(N);
-        validate_email(E);
-        validate_phone(ph);
-        validate_pass(pass);
-        User myuser=new User (name,email,phone,address,password);
+    public boolean SignUp(String name, String email, String phone, String address, String pass) {
+
+        User myuser = new User(name, email, phone, address, pass);
         myuser.createaccount(myuser);
         myuser.SavedData(myuser);
         myuser.PRINT();
         return true;
     }
+
 
     public void LogIn (String E, String pass)
     {
