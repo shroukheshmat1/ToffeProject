@@ -1,19 +1,20 @@
-import java.io.InputStream;
 import java.util.*;
-import javax.swing.JOptionPane;
 import java.lang.*;
-import java.io.InputStream;
+
 class Main {
     static boolean ordering=true;
     public static void Mainmenu()
     {
-        System.out.println("Welcome to our Toffee online store, please enter your choice: "
-                +"\n1- Sign-up as a user"
-                +"\n2- Log-in"
-                +"\n3- View Category"
-                +"\n4- Search for a product"
-                +"\n5- Reset Password"
-                +"\n4- Exit");
+        System.out.println("""
+                Welcome to our Toffee online store, please enter your choice:\s
+                1- Sign-up as a user
+                2- Log-in
+                3- View Category
+                4- Search for a product
+                5- Reset Password
+                6- Add items into your Cart
+                7- Delete Account
+                8- Exit""");
     }
     public static void AfterLogInmenu()
     {
@@ -30,6 +31,7 @@ class Main {
     {
         Scanner sc=new Scanner(System.in);
         SYSTEM system = new SYSTEM();
+        boolean loggedIn = false;
         do
         {
             Mainmenu();
@@ -37,8 +39,6 @@ class Main {
             switch (firstchoice)
             {
                 case 1:
-
-
                     System.out.print("Enter your User name: ");
                     String name = sc.next() + sc.nextLine();
                     while (!system.validate_name(name)) {
@@ -67,7 +67,6 @@ class Main {
                         password = sc.next();
                     }
 
-
                     system.SignUp(system.Name(), system.getEmail(), system.getPhone(), address, system.getPassword());
                     break;
                 case 2:
@@ -78,29 +77,66 @@ class Main {
                     System.out.print("Enter your password: ");
                     String Pass = sc.next();
                     system.Login(Email, Pass);
+                    loggedIn = true;
                     break;
                 case 3:
                     Category c= new Category();
-                    c.display_category();
+                    c.displayCategory();
                     break;
                 case 4:
-                    System.out.println("Enter your the product you're searching about: ");
-                    String product = sc.next();
-                    Category C=new Category();
-                    C.Search_for_a_product(product);
+//                    System.out.println("Enter your the product you're searching about: ");
+//                    String product = sc.next();
+//                    Category C=new Category();
+//                    C.Search_for_a_product(product);
+//                    System.out.println("Contents of Hashtable:");
+
+
+
                     break;
                 case 5:
-                    System.out.print("Enter your email: ");
-                    String EMail = sc.next();
+                    if(loggedIn) {
+                        System.out.print("Enter your email: ");
+                        String EMail = sc.next();
 
-                    System.out.print("Enter your password: ");
-                    String oldPass = sc.next();
-                    system.resetpass(EMail,oldPass);
+                        System.out.print("Enter your password: ");
+                        String oldPass = sc.next();
+                        system.resetpass(EMail, oldPass);
+                    }
+                    else {
+                        System.out.println("You have to log in first!");
+                    }
                     break;
                 case 6:
+                    if(loggedIn) {
+                        Category category = new Category();
+                        Cart cart = new Cart();
+
+                        System.out.println("Welcome to the Toffee Shop!");
+                        category.displayCategory();
+
+                        boolean done = false;
+                        while (!done) {
+                            System.out.println("Enter a product name to add to your cart (or 'done' to finish):");
+                            String productName = sc.nextLine().trim();
+                            if (productName.equalsIgnoreCase("done")) {
+                                done = true;
+                            } else {
+                                category.addProduct(productName, cart);
+                            }
+                        }
+
+                        System.out.println("Here is your cart:");
+                        cart.displayCart();
+                    }
+                    else{
+                        System.out.println("You have to log in first!");
+                    }
                     break;
                 case 7:
-                    return;
+                    break;
+                case 8:
+                    ordering=false;
+                    break;
                 default:
                     System.out.println("Please enter a valid choice: ");
                     break;
