@@ -62,4 +62,25 @@ public class Category {
 
         System.out.println(quantity + " " + productName + " added to cart.");
     }
+
+    public boolean SearchForaProduct (String SearchedProduct)
+    {
+        boolean found = false;
+        for (Product product : products)
+        {
+            if ((SearchedProduct.toLowerCase()).equals(product.getName().toLowerCase()))
+            {
+                System.out.println("Product: \" " + product.getName() + " \" is available, Price: " + product.getPrice());
+                found=true;
+                return found;
+            }
+        }
+        if (!found)
+        {
+            System.out.println("Product \" "  + SearchedProduct + " \" is not available");
+            found=false;
+            return found;
+        }
+        return found;
+    }
 }

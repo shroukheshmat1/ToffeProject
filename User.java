@@ -11,7 +11,7 @@ public class User {
     private String password;
 
     void SetPass(String pass) {
-        password = pass;
+        this.password = pass;
     }
 
     public static ArrayList<User> users = new ArrayList<User>();
@@ -38,7 +38,7 @@ public class User {
         users.add(user);
         System.out.println("User added successfully!");
         System.out.println("Welcome to Our System!");
-        ViewAllAccounts();
+         ViewAllAccounts();
 
     }
 
@@ -62,26 +62,6 @@ public class User {
             System.out.println("Address of User no " + (id + 1) + " is: " + users.get(id).address);
             System.out.println("Password of User no " + (id + 1) + " is: " + users.get(id).password);
         }
-    }
-
-    public void UpdateUser() {
-        System.out.println("Enter your ID: ");
-        int id = new Scanner(System.in).nextInt();
-        if (id <= users.size()) {
-            for (int i = 0; id < users.size(); i++) {
-                if (i == id - 1) {
-                    System.out.println("please enter your choice: "
-                            + "\n1- Update your Username"
-                            + "\n2- Update your Password"
-                            + "\n3- Update your Email"
-                            + "\n4- Update your Address"
-                            + "\n5- Update your Phone number"
-                            + "\n6- Exit");
-
-                }
-            }
-        } else
-            System.out.println("Invalid User Id");
     }
 
 }

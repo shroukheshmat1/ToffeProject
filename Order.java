@@ -23,6 +23,8 @@ public class Order {
             System.out.println("- " + item.getProduct().getName() + " (Quantity: " + item.getQuantity() + ", Price: " + item.getProduct().getPrice() + ")");
         }
         System.out.println("Total: " + calculateTotal());
+        System.out.println("Order payed with cash !");
+        System.out.println("Total price after cash fees : " + (calculateTotal() + 20));
     }
 
     public ArrayList<CartItem> getItems()
