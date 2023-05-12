@@ -16,20 +16,21 @@ class Main {
                 7- Delete Account
                 8- Exit""");
     }
+
     public static void AfterLogInmenu()
     {
         System.out.println("Welcome Back! please enter your choice: "
                 +"\n1- Reset Password"
                 +"\n2- View Category"
                 +"\n3- Search for a product"
-                +"\n5- Place an Order"
-                +"\n6- Add items into your Cart"
-                +"\n7- Delete Account"
+                +"\n4- Place an Order"
+                +"\n5- Add items into your Cart"
+                +"\n6- Delete Account"
                 +"\n7- Exit");
     }
     public static void main(String[] args)
     {
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         SYSTEM system = new SYSTEM();
         boolean loggedIn = false;
         do
@@ -56,16 +57,13 @@ class Main {
                     while (!system.validate_phone(phone)) {
                         phone = sc.next();
                     }
-
-                    System.out.print("Enter your address: ");
-                    String address = sc.next();
-
-
                     System.out.print("Enter your password: ");
                     String password = sc.next();
                     while (!system.validate_pass(password)) {
                         password = sc.next();
                     }
+                    System.out.print("Enter your address: ");
+                    String address = sc.next();
 
                     system.SignUp(system.Name(), system.getEmail(), system.getPhone(), address, system.getPassword());
                     break;
@@ -78,6 +76,74 @@ class Main {
                     String Pass = sc.next();
                     system.Login(Email, Pass);
                     loggedIn = true;
+
+                    // After logging in Successfully
+
+                    AfterLogInmenu();
+                    int choice= sc.nextInt();
+                    Cart cart = new Cart();
+                    switch (choice)
+                    {
+                        // reset password
+                        case 1:
+                            System.out.print("Enter your email: ");
+                            String EMail = sc.next();
+
+                            System.out.print("Enter your password: ");
+                            String oldPass = sc.next();
+                            system.resetpass(EMail, oldPass);
+                            break;
+
+                        //view category
+                        case 2:
+                            Category c= new Category();
+                            c.displayCategory();
+                            break;
+
+                        // Search for a product
+                        case 3:
+                            break;
+
+                        // place an order
+                        case 4:
+                            Order order = new Order(cart.getItems());
+                            order.displayOrder();
+
+                        // add items into cart
+                        case 5:
+                            Category category = new Category();
+                            Cart cartt = new Cart();
+
+                            System.out.println("Welcome to the Toffee Shop!");
+                            category.displayCategory();
+
+                            boolean done = false;
+                            do
+                            {
+                                System.out.println("Enter a product name to add to your cart (or 'done' to finish):");
+                                String productName = sc.nextLine().trim();
+                                if (productName.equalsIgnoreCase("done")) {
+                                    done = true;
+                                }
+                                else
+                                {
+                                    category.addProduct(productName, cartt);
+                                }
+                            }
+                            while (!done);
+                            System.out.println("Here is your cart:");
+                            cartt.displayCart();
+                            break;
+
+                        // delete account
+                        case 6:
+                            break;
+
+                        // exit
+                        case 7:
+                            break;
+                    }
+
                     break;
                 case 3:
                     Category c= new Category();
@@ -89,9 +155,6 @@ class Main {
 //                    Category C=new Category();
 //                    C.Search_for_a_product(product);
 //                    System.out.println("Contents of Hashtable:");
-
-
-
                     break;
                 case 5:
                     if(loggedIn) {
@@ -109,7 +172,7 @@ class Main {
                 case 6:
                     if(loggedIn) {
                         Category category = new Category();
-                        Cart cart = new Cart();
+                        Cart cartt = new Cart();
 
                         System.out.println("Welcome to the Toffee Shop!");
                         category.displayCategory();
@@ -121,12 +184,12 @@ class Main {
                             if (productName.equalsIgnoreCase("done")) {
                                 done = true;
                             } else {
-                                category.addProduct(productName, cart);
+                                category.addProduct(productName, cartt);
                             }
                         }
 
                         System.out.println("Here is your cart:");
-                        cart.displayCart();
+                        cartt.displayCart();
                     }
                     else{
                         System.out.println("You have to log in first!");
