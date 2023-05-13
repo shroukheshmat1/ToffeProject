@@ -94,7 +94,6 @@ class Main {
                                 }
                                 else {
                                     System.out.println("Invalid OTP. Please try again");
-                                    valid = true;
                                 }
                             }
                         }
@@ -166,39 +165,44 @@ class Main {
                     }
                     break;
                 case 7:
-                    Order order = new Order(cart.getItems());
-                    CheckOut checkOut = new CheckOut(order);
+                    if(loggedIn) {
+                        Order order = new Order(cart.getItems());
+                        CheckOut checkOut = new CheckOut(order);
 
-                    System.out.println("Choose a payment method:");
-                    System.out.println("1. Pay with voucher");
-                    System.out.println("2. Pay with smart wallet");
-                    System.out.println("3. Pay with loyalty points");
-                    System.out.println("4. Pay with cash on delivery");
+                        System.out.println("Choose a payment method:");
+                        System.out.println("1. Pay with voucher");
+                        System.out.println("2. Pay with smart wallet");
+                        System.out.println("3. Pay with loyalty points");
+                        System.out.println("4. Pay with cash on delivery");
 
-                    int choice = sc.nextInt();
-                    switch (choice) {
-                        case 1:
-                            order.displayOrder();
-                            order.deliveryAddressCheck(system);
-                            checkOut.payWithVoucher();
-                            break;
-                        case 2:
-                            order.displayOrder();
-                            order.deliveryAddressCheck(system);
-                            checkOut.payWithSmartWallet();
-                            break;
-                        case 3:
-                            order.displayOrder();
-                            order.deliveryAddressCheck(system);
-                            checkOut.payWithLoyaltyPoints();
-                            break;
-                        case 4:
-                            order.displayOrder();
-                            order.deliveryAddressCheck(system);
-                            checkOut.payWithCashOnDelivery();
-                            break;
-                        default:
-                            System.out.println("Invalid choice!");
+                        int choice = sc.nextInt();
+                        switch (choice) {
+                            case 1:
+                                order.displayOrder();
+                                order.deliveryAddressCheck(system);
+                                checkOut.payWithVoucher();
+                                break;
+                            case 2:
+                                order.displayOrder();
+                                order.deliveryAddressCheck(system);
+                                checkOut.payWithSmartWallet();
+                                break;
+                            case 3:
+                                order.displayOrder();
+                                order.deliveryAddressCheck(system);
+                                checkOut.payWithLoyaltyPoints();
+                                break;
+                            case 4:
+                                order.displayOrder();
+                                order.deliveryAddressCheck(system);
+                                checkOut.payWithCashOnDelivery();
+                                break;
+                            default:
+                                System.out.println("Invalid choice!");
+                        }
+                    }
+                    else {
+                        System.out.println("You have to log in first!");
                     }
 
                     break;

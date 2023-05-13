@@ -35,32 +35,35 @@ public class Order {
         verifyOTP sentOTP = new verifyOTP();
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
+        boolean valid = false;
 
         System.out.println("Do you want to deliver to your address (" + system.getAddress() + ")? (yes/no)");
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("no")) {
             // email verification
-            System.out.println("An OTP has sent to your email please check it !");
-            int OTP = random.nextInt(900000) + 100000;
-            String strOTP = Integer.toString(OTP);
-            sentOTP.sendOTPEmail(system.getEmail(), strOTP);
-            System.out.println("Enter the OTP sent to your email: ");
-            String inputOTP = scanner.next();
+            while(!valid) {
+                System.out.println("An OTP has sent to your email please check it !");
+                int OTP = random.nextInt(900000) + 100000;
+                String strOTP = Integer.toString(OTP);
+                sentOTP.sendOTPEmail(system.getEmail(), strOTP);
+                System.out.println("Enter the OTP sent to your email: ");
+                String inputOTP = scanner.next();
 
-            if(inputOTP.equals(strOTP)) {
-                System.out.println("Your account has been created successfully!");
-            }
-            else {
-                System.out.println("Invalid OTP. Please try again");
+                if (inputOTP.equals(strOTP)) {
+                    System.out.println("OTP has been confirmed successfully");
+                    valid = true;
+                } else {
+                    System.out.println("Invalid OTP. Please try again");
+                }
             }
             // update address
             System.out.println("Please enter your new delivery address:");
-            String newAddress = scanner.nextLine();
+            String newAddress = scanner.next() + scanner.nextLine();
             system.setAddress(newAddress);
-            System.out.println("Delivery address updated to: " + system.getAddress());
+            System.out.println("Delivery address updated to: " + system.getAddress() + "\n");
         }
         else if(choice.equalsIgnoreCase("yes")) {
-            System.out.println("Delivery will be made to your address: " + system.getAddress());
+            System.out.println("Delivery will be made to your address: " + system.getAddress()+ "\n");
         }
     }
 
