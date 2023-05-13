@@ -47,7 +47,7 @@ class Main {
                     }
 
                     System.out.print("Enter your address: ");
-                    String address = sc.next();
+                    String address = sc.next() + sc.nextLine();
                     system.setAddress(address);
 
 
@@ -179,22 +179,22 @@ class Main {
                     switch (choice) {
                         case 1:
                             order.displayOrder();
-                            order.askForDeliveryAddress(system);
+                            order.deliveryAddressCheck(system);
                             checkOut.payWithVoucher();
                             break;
                         case 2:
                             order.displayOrder();
-                            order.askForDeliveryAddress(system);
+                            order.deliveryAddressCheck(system);
                             checkOut.payWithSmartWallet();
                             break;
                         case 3:
                             order.displayOrder();
-                            order.askForDeliveryAddress(system);
+                            order.deliveryAddressCheck(system);
                             checkOut.payWithLoyaltyPoints();
                             break;
                         case 4:
                             order.displayOrder();
-                            order.askForDeliveryAddress(system);
+                            order.deliveryAddressCheck(system);
                             checkOut.payWithCashOnDelivery();
                             break;
                         default:
